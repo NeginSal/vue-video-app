@@ -1,15 +1,24 @@
 <template>
-  <div class="container">
-    <Navbar />
-    <!-- <h1 class="text-center">🎬 Vue 3 Video App (Protected)</h1> -->
+  <div class="container-fluid bg-dark text-white h-100">
     <div class="row">
+      <Navbar />
+    </div>
+    <div class="row mx-4 mt-5 h-100">
+      <!-- <div class="col-12 col-lg-9"> -->
+      <VideoPlayer />
+      <!-- </div> -->
+      <!-- <div class="col-12 col-lg-3 px-0">
+        <SidePanel />
+      </div> -->
+    </div>
+    <!-- <div class="row mx-4 mt-4 h-100">
       <div class="col-12 col-lg-9">
         <VideoPlayer />
       </div>
-      <div class="col-12 col-lg-3">
+      <div class="col-12 col-lg-3 px-0">
         <SidePanel />
       </div>
-    </div>
+    </div> -->
     <button class="btn btn-danger float-end" @click="logout">🚪 Logout</button>
 
   </div>

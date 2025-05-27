@@ -1,35 +1,133 @@
 <template>
-  <div class="container mt-5">
-    <h2>{{ movie.title }}</h2>
-    <video ref="videoPlayer" width="100%" controls :src="selectedQuality" class="mb-3"></video>
-    <div class="mb-2">
-      <button class="btn btn-primary me-2" @click="playVideo">▶️ Play</button>
-      <button class="btn btn-warning me-2" @click="pauseVideo">⏸️ Pause</button>
-      <button class="btn btn-info me-2" @click="rewind">⏪ Rewind 10s</button>
-      <button class="btn btn-info me-2" @click="forward">⏩ Forward 10s</button>
+  <div class="row mt-5">
+    <div class="row">
+      <div class="col-lg-8 d-flex justify-content-between">
+        <div class="d-flex">
+          <p><i class="bi bi-film fs-1 me-2"></i></p>
+          <p class="d-flex flex-column">
+            <span class="fs-3 fw-bold"> {{ movie.title }}</span>
+            <span class="fs-6 fw-lighter">فیلم ال‌کامینو</span>
+          </p>
+        </div>
+        <div>
+          <select class="form-select w-auto d-inline-block text-white" @change="changeQuality($event)">
+            <option v-for="q in qualities" :key="q.quality" :value="q.url">
+              کیفیت {{ q.quality }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-4 d-flex justify-content-between">
+        <span>
+          <i class="bi bi-star text-warning"></i>
+          <i class="bi bi-star-half text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+        </span>
+        <span>
+          10 / 4.5 <i class="bi bi-film"></i>
+        </span>
+        <span>
+          <i class="bi bi-bookmark-dash ms-1"></i>
+          <i class="bi bi-share-fill"></i>
+        </span>
+      </div>
     </div>
-    <div class="mb-3">
-      <label>Select Quality:</label>
-      <select class="form-select w-auto d-inline-block" @change="changeQuality($event)">
-        <option v-for="q in qualities" :key="q.quality" :value="q.url">
-          {{ q.quality }}
-        </option>
-      </select>
+    <div class="row">
+      <div class="col-12 col-lg-9">
+        <div class="video-container">
+          <video ref="videoPlayer" class="video-element" :src="selectedQuality" controls @click="toggleControls" />
+          <div class="video-controls" :class="{ 'show': showControls }">
+            <button class="btn btn-sm btn-light me-2" @click="rewind">⏪</button>
+            <button class="btn btn-sm btn-light me-2" @click="playVideo">▶️</button>
+            <button class="btn btn-sm btn-light me-2" @click="pauseVideo">⏸️</button>
+            <button class="btn btn-sm btn-light me-2" @click="forward">⏩</button>
+          </div>
+        </div>
+        <p class="fs-5 text-end my-3">{{ movie.description }}</p>
+        <p class="fs-6 text-end"> Released: {{ movie.releaseYear }} | Rating: {{ movie.rating }}
+          <i class="bi bi-calendar3"></i>
+        </p>
+      </div>
+      <div class="col-12 col-lg-3 px-0">
+        <SidePanel />
+      </div>
     </div>
-    <p>{{ movie.description }}</p>
-    <small>🎬 Released: {{ movie.releaseYear }} | Rating: {{ movie.rating }}</small>
+
   </div>
+
+  <!-- <div class="mt-5 position-relative video-wrapper">
+    <div class="d-flex flex-column flex-md-row justify-content-md-between mt-3 align-items-baseline">
+      <div class="d-flex align-items-center">
+        <p><i class="bi bi-film fs-1 me-2"></i></p>
+        <p class="d-flex flex-column">
+          <span class="fs-3 fw-bold"> {{ movie.title }}</span>
+          <span class="fs-6 fw-lighter">فیلم ال‌کامینو</span>
+        </p>
+      </div>
+      <div class="bg-dark">
+        <select class="form-select w-auto d-inline-block text-white" @change="changeQuality($event)">
+          <option v-for="q in qualities" :key="q.quality" :value="q.url">
+            کیفیت {{ q.quality }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="mt-5 d-flex justify-content-between py-4">
+      <span>
+        <i class="bi bi-star text-warning"></i>
+        <i class="bi bi-star-half text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+      </span>
+      <span>
+        10 / 4.5 <i class="bi bi-film"></i>
+      </span>
+      <span>
+        <i class="bi bi-bookmark-dash ms-1"></i>
+        <i class="bi bi-share-fill"></i>
+      </span>
+    </div>
+
+    <div class="video-container">
+      <video ref="videoPlayer" class="video-element" :src="selectedQuality" controls @click="toggleControls" />
+      <div class="video-controls" :class="{ 'show': showControls }">
+        <button class="btn btn-sm btn-light me-2" @click="rewind">⏪</button>
+        <button class="btn btn-sm btn-light me-2" @click="playVideo">▶️</button>
+        <button class="btn btn-sm btn-light me-2" @click="pauseVideo">⏸️</button>
+        <button class="btn btn-sm btn-light me-2" @click="forward">⏩</button>
+      </div>
+    </div>
+    <p class="fs-5 text-end my-3">{{ movie.description }}</p>
+    <p class="fs-6 text-end"> Released: {{ movie.releaseYear }} | Rating: {{ movie.rating }}
+      <i class="bi bi-calendar3"></i>
+    </p>
+  </div> -->
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import { fetchMovieDetails } from '../services/api'
+import SidePanel from './SidePanel.vue'
 
 const videoPlayer = ref(null)
 const movie = ref({})
 const qualities = ref([])
 const selectedQuality = ref('')
 const currentQuality = ref({})
+
+const showControls = ref(false)
+
+const toggleControls = () => {
+  showControls.value = true
+
+  setTimeout(() => {
+    showControls.value = false
+  }, 3000)
+}
+
 
 onMounted(async () => {
   const data = await fetchMovieDetails()
@@ -45,3 +143,47 @@ const rewind = () => videoPlayer.value.currentTime -= 10
 const forward = () => videoPlayer.value.currentTime += 10
 const changeQuality = (event) => selectedQuality.value = event.target.value
 </script>
+
+<style scoped>
+.form-select {
+  border: none;
+  background-color: #202022;
+}
+
+.form-select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: inherit !important;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+}
+
+.video-element {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.video-controls {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+  /* تا فقط روی دکمه‌ها بشه کلیک کرد */
+}
+
+.video-container:hover .video-controls,
+.video-controls.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+</style>

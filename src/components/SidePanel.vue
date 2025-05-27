@@ -1,45 +1,75 @@
 <template>
-  <div class="list-group mt-5">
-    <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-      <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img src="..." class="img-fluid rounded-start" alt="...">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                content. This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </a>
-    <a href="#" class="list-group-item list-group-item-action">
-      <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img src="..." class="img-fluid rounded-start" alt="...">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                content. This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-            </div>
+    <ul class="list-group bg-dark">
+      <li
+        class="list-group-item-dark d-flex justify-content-between align-items-center p-0 border-bottom border-white mb-3 mt-3">
+        <div class="d-flex w-100 align-items-center">
+          <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px" />
+          <div class="w-100 ms-3">
+            <p class="fw-bold mb-1">فیلم El CAMINO</p>
+            <p class="text-light-emphasis mb-0">6.5 per meter</p>
+            <p class="text-light-emphasis mb-0">اجتماعی، سیاسی،هیجانی</p>
+            <p class="d-flex flex-row justify-content-between align-items-baseline">
+              <span>2023</span>
+              <span><i class="bi bi-star-fill text-warning"></i>3.5(۱۲ رای)</span>
+            </p>
+            <p class="d-flex flex-row justify-content-between align-items-baseline">
+              <span>10/4.5<i class="bi bi-badge-ad"></i></span>
+              <span class="mx-3">10/6.4<i class="bi bi-badge-ad"></i></span>
+              <span>45<i class="bi bi-badge-ad"></i></span>
+            </p>
           </div>
         </div>
-      </div>
-    </a>
-
-  </div>
+      </li>
+      <li
+        class="list-group-item-dark d-flex justify-content-between align-items-center p-0 border-bottom border-white mb-3 mt-3">
+        <div class="d-flex w-100 align-items-center">
+          <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px"/>
+          <div class="w-100 ms-3">
+            <p class="fw-bold mb-1">فیلم El CAMINO</p>
+            <p class="text-light-emphasis mb-0">6.5 per meter</p>
+            <p class="text-light-emphasis mb-0">اجتماعی، سیاسی،هیجانی</p>
+            <p class="d-flex flex-row justify-content-between align-items-baseline">
+              <span>2023</span>
+              <span><i class="bi bi-star-fill text-warning"></i>3.5(۱۲ رای)</span>
+            </p>
+            <p class="d-flex flex-row justify-content-between align-items-baseline">
+              <span>10/4.5<i class="bi bi-badge-ad"></i></span>
+              <span class="mx-3">10/6.4<i class="bi bi-badge-ad"></i></span>
+              <span>45<i class="bi bi-badge-ad"></i></span>
+            </p>
+          </div>
+        </div>
+      </li>
+      <li
+        class="list-group-item-dark d-flex justify-content-between align-items-center p-0 border-bottom border-white mb-3 mt-3">
+        <div class="d-flex w-100 align-items-center">
+          <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" class="img-fluid"  style="width: 100px; height: 100%" />
+          <div class="w-100 ms-3">
+            <p class="fw-bold mb-1">فیلم El CAMINO</p>
+            <p class="text-light-emphasis mb-0">6.5 per meter</p>
+            <p class="text-light-emphasis mb-0">اجتماعی، سیاسی،هیجانی</p>
+            <p class="d-flex flex-row justify-content-between align-items-baseline">
+              <span>2023</span>
+              <span><i class="bi bi-star-fill text-warning"></i>3.5(۱۲ رای)</span>
+            </p>
+            <p class="d-flex flex-row justify-content-between align-items-baseline">
+              <span>10/4.5<i class="bi bi-badge-ad"></i></span>
+              <span class="mx-3">10/6.4<i class="bi bi-badge-ad"></i></span>
+              <span>45<i class="bi bi-badge-ad"></i></span>
+            </p>
+          </div>
+        </div>
+      </li>
+    </ul>
 </template>
 
 <script setup>
 
 </script>
 
-<style></style>
+<style scoped>
+.bi-star-fill-fill {
+  color: yellow;
+  /* رنگ داخلی */
+}
+</style>
