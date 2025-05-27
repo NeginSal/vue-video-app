@@ -1,4 +1,24 @@
-export function fetchMovieDetails() {
+let token = null 
+
+export function login(username, password) {
+  if (username === 'user' && password === 'password') {
+    token = 'fake_jwt_token_123456'
+    return Promise.resolve({ token })
+  } else {
+    return Promise.reject('Invalid credentials')
+  }
+}
+
+export function getToken() {
+  return token
+}
+
+export function fetchMovieDetailsSecure() {
+  const authToken = getToken()
+  if (!authToken) {
+    return Promise.reject('Unauthorized')
+  }
+
   return Promise.resolve({
     movieId: "m12345",
     title: "The Great Adventure",

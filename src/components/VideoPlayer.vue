@@ -31,6 +31,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { fetchMovieDetails } from '../services/api.js'
+import { fetchMovieDetailsSecure } from '../services/api.js'
 
 const video = ref(null)
 const isPlaying = ref(false)
@@ -41,11 +42,16 @@ const selectedQuality = ref('')
 const currentQuality = ref({})
 
 onMounted(async () => {
-  movie.value = await fetchMovieDetails()
-  qualities.value = movie.value.qualities
-  selectedQuality.value = qualities.value[0].url
-  currentQuality.value = qualities.value[0]
+  try {
+    movie.value = await fetchMovieDetailsSecure()
+    qualities.value = movie.value.qualities
+    selectedQuality.value = qualities.value[0].url
+    currentQuality.value = qualities.value[0]
+  } catch (err) {
+    alert('Access denied! Please login first.')
+  }
 })
+
 
 const togglePlay = () => {
   if (!video.value) return
