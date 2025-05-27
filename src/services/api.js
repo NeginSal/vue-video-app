@@ -1,37 +1,22 @@
-let token = null 
-
-export function login(username, password) {
-  if (username === 'user' && password === 'password') {
-    token = 'fake_jwt_token_123456'
-    return Promise.resolve({ token })
-  } else {
-    return Promise.reject('Invalid credentials')
-  }
-}
-
-export function getToken() {
-  return token
-}
-
-export function fetchMovieDetailsSecure() {
-  const authToken = getToken()
-  if (!authToken) {
-    return Promise.reject('Unauthorized')
-  }
-
-  return Promise.resolve({
-    movieId: "m12345",
-    title: "The Great Adventure",
-    description: "An epic journey through uncharted lands.",
+export async function fetchMovieDetails() {
+  return {
+    movieId: 'm12345',
+    title: 'The Great Adventure',
+    description: 'An epic journey through uncharted lands.',
     releaseYear: 2023,
-    rating: "PG-13",
+    rating: 'PG-13',
     qualities: [
-      { quality: "480p", url: "https://www.w3schools.com/html/mov_bbb.mp4" },
-      { quality: "720p", url: "https://www.w3schools.com/html/movie.mp4" }
-    ],
-    cast: [
-      { name: "John Doe", role: "Explorer" },
-      { name: "Jane Smith", role: "Navigator" }
+      { quality: '480p', url: 'https://example.com/video/480p.mp4' },
+      { quality: '720p', url: 'https://example.com/video/720p.mp4' },
+      { quality: '1080p', url: 'https://example.com/video/1080p.mp4' }
     ]
-  })
+  }
+}
+
+export async function loginUser(username, password) {
+  if (username === 'user' && password === 'password') {
+    return { token: 'your_jwt_token_here' }
+  } else {
+    alert('Invalid credentials')
+  }
 }

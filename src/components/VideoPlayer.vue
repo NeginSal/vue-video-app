@@ -1,90 +1,47 @@
 <template>
-  <div class="container mt-4" v-if="movie">
-    <h2>{{ movie.title }} ({{ movie.releaseYear }})</h2>
-    <p>{{ movie.description }}</p>
-    <p><strong>Rating:</strong> {{ movie.rating }}</p>
-
-    <video ref="video" class="w-100 mb-3" controls :src="currentQuality.url"></video>
-
-    <div class="btn-group mb-3">
-      <button class="btn btn-primary" @click="togglePlay">
-        {{ isPlaying ? 'Pause' : 'Play' }}
-      </button>
-      <button class="btn btn-secondary" @click="rewind">⏪ Rewind</button>
-      <button class="btn btn-secondary" @click="forward">⏩ Forward</button>
+  <div class="container mt-5">
+    <h2>{{ movie.title }}</h2>
+    <video ref="videoPlayer" width="100%" controls :src="selectedQuality" class="mb-3"></video>
+    <div class="mb-2">
+      <button class="btn btn-primary me-2" @click="playVideo">▶️ Play</button>
+      <button class="btn btn-warning me-2" @click="pauseVideo">⏸️ Pause</button>
+      <button class="btn btn-info me-2" @click="rewind">⏪ Rewind 10s</button>
+      <button class="btn btn-info me-2" @click="forward">⏩ Forward 10s</button>
     </div>
-
-    <div class="form-group mb-3">
-      <label for="qualitySelect">Quality:</label>
-      <select class="form-control" v-model="selectedQuality" @change="changeQuality">
-        <option v-for="q in qualities" :key="q.quality" :value="q.url">{{ q.quality }}</option>
+    <div class="mb-3">
+      <label>Select Quality:</label>
+      <select class="form-select w-auto d-inline-block" @change="changeQuality($event)">
+        <option v-for="q in qualities" :key="q.quality" :value="q.url">
+          {{ q.quality }}
+        </option>
       </select>
     </div>
-
-    <h5>Cast:</h5>
-    <ul>
-      <li v-for="actor in movie.cast" :key="actor.name">{{ actor.name }} - {{ actor.role }}</li>
-    </ul>
+    <p>{{ movie.description }}</p>
+    <small>🎬 Released: {{ movie.releaseYear }} | Rating: {{ movie.rating }}</small>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { fetchMovieDetails } from '../services/api.js'
-import { fetchMovieDetailsSecure } from '../services/api.js'
+import { fetchMovieDetails } from '../services/api'
 
-const video = ref(null)
-const isPlaying = ref(false)
-
-const movie = ref(null)
+const videoPlayer = ref(null)
+const movie = ref({})
 const qualities = ref([])
 const selectedQuality = ref('')
 const currentQuality = ref({})
 
 onMounted(async () => {
-  try {
-    movie.value = await fetchMovieDetailsSecure()
-    qualities.value = movie.value.qualities
-    selectedQuality.value = qualities.value[0].url
-    currentQuality.value = qualities.value[0]
-  } catch (err) {
-    alert('Access denied! Please login first.')
-  }
+  const data = await fetchMovieDetails()
+  movie.value = data
+  qualities.value = data.qualities
+  selectedQuality.value = qualities.value[0].url
+  currentQuality.value = qualities.value[0]
 })
 
-
-const togglePlay = () => {
-  if (!video.value) return
-  if (video.value.paused) {
-    video.value.play()
-    isPlaying.value = true
-  } else {
-    video.value.pause()
-    isPlaying.value = false
-  }
-}
-
-const rewind = () => {
-  if (video.value) video.value.currentTime -= 10
-}
-
-const forward = () => {
-  if (video.value) video.value.currentTime += 10
-}
-
-const changeQuality = () => {
-  currentQuality.value = qualities.value.find(q => q.url === selectedQuality.value)
-  if (video.value) {
-    const currentTime = video.value.currentTime
-    video.value.src = selectedQuality.value
-    video.value.currentTime = currentTime
-    if (isPlaying.value) video.value.play()
-  }
-}
+const playVideo = () => videoPlayer.value.play()
+const pauseVideo = () => videoPlayer.value.pause()
+const rewind = () => videoPlayer.value.currentTime -= 10
+const forward = () => videoPlayer.value.currentTime += 10
+const changeQuality = (event) => selectedQuality.value = event.target.value
 </script>
-
-<style scoped>
-video {
-  max-height: 400px;
-}
-</style>
