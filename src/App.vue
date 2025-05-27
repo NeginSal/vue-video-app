@@ -1,9 +1,12 @@
-<script setup>
-
-</script>
-
 <template>
-  <p class="text-primary">fdffffffffffffff</p>
+  <div>
+    <h1 class="text-center mt-3">🎬 Vue 3 Video Player</h1>
+    <VideoPlayer />
+  </div>
 </template>
+
+<script setup>
+import VideoPlayer from './components/VideoPlayer.vue'
+</script>
 
 <style scoped></style>
