@@ -11,14 +11,26 @@
         <i class="bi bi-bell"></i>
       </button>
       <ul class="dropdown-menu bg-dark text-center dropdown-menu-end">
-        <li class="border-bottom"><button class="dropdown-item" type="button"><i
-              class="bi bi-chat-square-dots fs-3"></i></button></li>
-        <li class="border-bottom"><button class="dropdown-item" type="button"><i class="bi bi-search fs-3"></i></button>
+        <li class="border-bottom">
+          <button class="dropdown-item" type="button">
+            <i class="bi bi-chat-square-dots fs-3"></i>
+          </button>
         </li>
-        <li class="border-bottom"><button class="dropdown-item" type="button"></button><i
-            class="bi bi-person-circle fs-3"></i></li>
-        <li class="border-bottom"><button class="dropdown-item" type="button"></button><i
-            class="bi bi-box-arrow-left fs-3 fw-bolder"></i></li>
+        <li class="border-bottom">
+          <button class="dropdown-item" type="button">
+            <i class="bi bi-search fs-3"></i>
+          </button>
+        </li>
+        <li class="border-bottom">
+          <button class="dropdown-item" type="button">
+            <i class="bi bi-person-circle fs-3"></i>
+          </button>
+        </li>
+        <li class="border-bottom">
+          <button class="dropdown-item" type="button" @click="logout">
+            <i class="bi bi-box-arrow-left fs-3 fw-bolder"></i>
+          </button>
+        </li>
       </ul>
     </div>
     <div class="collapse navbar-collapse px-3" id="navbarTogglerDemo01">
