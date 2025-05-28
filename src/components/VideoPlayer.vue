@@ -74,29 +74,46 @@
 import { ref, onMounted } from 'vue'
 import { fetchMovieDetails } from '../services/api'
 import SidePanel from './SidePanel.vue'
+import { useRouter } from 'vue-router'
 
 const videoPlayer = ref(null)
 const movie = ref({})
 const qualities = ref([])
 const selectedQuality = ref('')
 const currentQuality = ref({})
-
 const showControls = ref(false)
+const router = useRouter()
 
 const toggleControls = () => {
   showControls.value = true
-
   setTimeout(() => {
     showControls.value = false
   }, 3000)
 }
 
 onMounted(async () => {
-  const data = await fetchMovieDetails()
-  movie.value = data
-  qualities.value = data.qualities
-  selectedQuality.value = qualities.value[0].url
-  currentQuality.value = qualities.value[0]
+  const token = localStorage.getItem('token')
+  if (!token) {
+    alert('لطفاً ابتدا وارد شوید')
+    router.push('/login')
+    return
+  }
+
+  const cachedData = sessionStorage.getItem('movieDetails')
+  if (cachedData) {
+    const parsed = JSON.parse(cachedData)
+    movie.value = parsed
+    qualities.value = parsed.qualities
+    selectedQuality.value = qualities.value[0].url
+    currentQuality.value = qualities.value[0]
+  } else {
+    const data = await fetchMovieDetails()
+    movie.value = data
+    qualities.value = data.qualities
+    selectedQuality.value = qualities.value[0].url
+    currentQuality.value = qualities.value[0]
+    sessionStorage.setItem('movieDetails', JSON.stringify(data))
+  }
 })
 
 const playVideo = () => videoPlayer.value.play()
