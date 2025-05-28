@@ -1,7 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg fixed-top px-3">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-      aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler navbar-dark" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
+      aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand fs-2 d-block d-lg-none" href="#"><i class="bi bi-claude"></i> فیلم ترسناک </a>

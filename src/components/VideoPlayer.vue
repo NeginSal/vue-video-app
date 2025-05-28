@@ -13,8 +13,8 @@
       </button>
     </div>
   </div>
-  <div class="row mb-1 mx-auto">
-    <div class="col-lg-8 d-flex justify-content-between align-items-baseline">
+  <div class="row mb-1 mx-auto justify-content-between align-items-baseline">
+    <div class="col-lg-8 d-flex justify-content-between align-items-baseline p-0">
       <div class="d-flex align-items-center">
         <p><i class="bi bi-film fs-1 ms-3 align-middle"></i></p>
         <p class="d-flex flex-column">
@@ -23,7 +23,7 @@
           <span class="fw-lighter">فیلم ال‌کامینو</span>
         </p>
       </div>
-      <div class="d-none d-sm-block">
+      <div class="d-none d-sm-block px-3">
         <select class="form-select w-auto d-inline-block text-white" @change="changeQuality($event)">
           <option v-for="q in qualities" :key="q.quality" :value="q.url">
             کیفیت {{ q.quality }}
@@ -49,7 +49,7 @@
     </div>
   </div>
   <div class="row mx-auto">
-    <div class="col-12 col-lg-8 px-4 py-2">
+    <div class="col-12 col-lg-8 px-3 py-2">
       <div class="video-container">
         <video ref="videoPlayer" class="video-element" :src="selectedQuality" controls @click="toggleControls" />
         <div class="video-controls" :class="{ 'show': showControls }">
@@ -160,7 +160,7 @@ const changeQuality = (event) => selectedQuality.value = event.target.value
 
 @media (max-width: 575.98px) {
   .backBtnRow {
-    margin-top: 130px !important;
+    margin-top: 90px !important;
   }
 
 }
