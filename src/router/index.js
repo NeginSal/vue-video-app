@@ -21,7 +21,6 @@ const router = createRouter({
   routes
 })
 
-
 router.beforeEach((to, from, next) => {
   const isAuthenticated = !!localStorage.getItem('token')
   if (to.meta.requiresAuth && !isAuthenticated) {
